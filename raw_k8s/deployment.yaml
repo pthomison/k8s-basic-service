@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-server
+  namespace: k8s-basic-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: http-server
+  template:
+    metadata:
+      labels:
+        app: http-server
+    spec:
+      containers:
+      - name: http-server
+        workingDir: /opt/
+        image: python:3
+        imagePullPolicy: Always
+        command:
+          - "python3"
+          - "-m"
+          - "http.server"
+          - "8080"

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: http-server
+        workingDir: /opt/
+        image: python:3
+        imagePullPolicy: Always
+        command:
+          - "python3"
+          - "-m"
+          - "http.server"
+          - "8080"

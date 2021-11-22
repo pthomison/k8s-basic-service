@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx-tls
+
+  name: http-server
+  namespace: k8s-basic-service
+spec:
+  rules:
+  - host: acooldomain.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: http-server
+            port:
+              number: 80
+        path: /
+        pathType: Prefix 
+  tls:
+  - hosts:
+    - acooldomain.com
+    secretName: acooldomain.com-tls
