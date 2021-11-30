@@ -2,22 +2,22 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/ingress.class: nginx-tls
+    cert-manager.io/cluster-issuer: {{ .Values.certManagerIssuer }}
+    kubernetes.io/ingress.class: {{ .Values.ingressClass }}
   name: {{ .Values.name }}
 spec:
   rules:
-  - host: acooldomain.com
+  - host: {{ .Values.domain }}
     http:
       paths:
       - backend:
           service:
             name: {{ .Values.name }}
             port:
-              number: 80
+              number: {{ .Values.servicePort }}
         path: /
         pathType: Prefix 
   tls:
   - hosts:
-    - acooldomain.com
-    secretName: acooldomain.com-tls
+    - {{ .Values.domain }}
+    secretName: {{ .Values.domain }}-tls

@@ -17,8 +17,12 @@ spec:
         workingDir: /opt/
         image: python:3
         imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: {{ .Values.podPort }}
+            protocol: TCP
         command:
           - "python3"
           - "-m"
           - "http.server"
-          - "8080"
+          - {{ .Values.podPort | quote }}

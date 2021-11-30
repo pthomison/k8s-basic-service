@@ -1,1 +1,7 @@
 name: k8s-basic-service-2
+domain: acooldomain.com
+servicePort: 80
+podPort: 8080
+
+ingressClass: "nginx-tls"
+certManagerIssuer: "letsencrypt-prod"
